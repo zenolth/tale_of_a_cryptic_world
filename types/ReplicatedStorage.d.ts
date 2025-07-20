@@ -1,26 +1,25 @@
 interface ReplicatedStorage extends Instance {
-	Stats: Folder & {
-		Energy: Frame & {
-			UICorner: UICorner;
-			UIStroke: UIStroke;
-			UIAspectRatioConstraint: UIAspectRatioConstraint;
-			Fill: Frame & {
-				UICorner: UICorner;
-				UIGradient: UIGradient;
+	Assets: Folder & {
+		Viewmodel: Model & {
+			Torso: Part & {
+				Weld: Weld;
+			};
+			Head: Part;
+		};
+		Collider: Model & {
+			Eyes: Part;
+			Legs: Part;
+			Body: Part & {
+				LegsWeld: Weld;
+				EyesWeld: Weld;
+				RootWeld: Weld;
 			};
 		};
-		Health: Frame & {
-			UICorner: UICorner;
-			UIStroke: UIStroke;
-			UIAspectRatioConstraint: UIAspectRatioConstraint;
-			Fill: Frame & {
-				UICorner: UICorner;
-				UIGradient: UIGradient;
-			};
+		ControllerManager: ControllerManager & {
+			GroundController: GroundController;
+			ClimbController: ClimbController;
+			AirController: AirController;
 		};
-	};
-	TS: Folder & {
-		angles: ModuleScript;
 	};
 	Animations: Folder & {
 		Fireaxe: Folder & {
@@ -379,16 +378,134 @@ interface ReplicatedStorage extends Instance {
 		Promise: ModuleScript;
 		node_modules: Folder & {
 			["@rbxts"]: Folder & {
+				spring: ModuleScript;
+				services: ModuleScript;
+				bridge: Folder & {
+					out: ModuleScript & {
+						bridge: ModuleScript;
+					};
+				};
+				["compiler-types"]: Folder & {
+					types: Folder;
+				};
+				["object-utils"]: ModuleScript;
+				t: Folder & {
+					lib: Folder & {
+						ts: ModuleScript;
+					};
+				};
 				maid: Folder & {
 					Maid: ModuleScript;
 				};
-				services: ModuleScript;
-				["compiler-types"]: Folder & {
-					types: Folder;
+				math: Folder & {
+					Packages: Folder & {
+						Math: ModuleScript;
+						_Index: Folder & {
+							["robloxiandemo_math@0.1.1"]: Folder & {
+								math: ModuleScript & {
+									wally: ModuleScript;
+								};
+							};
+						};
+					};
+					src: Folder & {
+						Math: ModuleScript;
+					};
+				};
+				signal: ModuleScript;
+				jsnatives: Folder & {
+					out: ModuleScript & {
+						number: ModuleScript;
+						console: ModuleScript;
+						encodeUriComponent: ModuleScript;
+						json: ModuleScript;
+						timers: ModuleScript;
+						symbol: ModuleScript;
+						string: ModuleScript;
+						object: ModuleScript;
+						set_utils: ModuleScript;
+						proxy: ModuleScript;
+						inspect: ModuleScript;
+						error: ModuleScript;
+						array_utils: ModuleScript;
+					};
 				};
 				types: Folder & {
 					include: Folder & {
 						generated: Folder;
+					};
+				};
+			};
+			["@flamework"]: Folder & {
+				core: Folder & {
+					node_modules: Folder & {
+						["@rbxts"]: Folder & {
+							t: Folder & {
+								lib: Folder & {
+									ts: ModuleScript;
+								};
+							};
+						};
+					};
+					out: ModuleScript & {
+						utility: ModuleScript;
+						flamework: ModuleScript;
+						prelude: ModuleScript;
+						reflect: ModuleScript;
+						modding: ModuleScript;
+						metadata: ModuleScript;
+					};
+				};
+				components: Folder & {
+					out: ModuleScript & {
+						components: ModuleScript;
+						baseComponent: ModuleScript;
+						componentTracker: ModuleScript;
+						utility: ModuleScript;
+					};
+				};
+				networking: Folder & {
+					node_modules: Folder & {
+						["@rbxts"]: Folder & {
+							t: Folder & {
+								lib: Folder & {
+									ts: ModuleScript;
+								};
+							};
+						};
+					};
+					out: ModuleScript & {
+						["function"]: Folder & {
+							createFunctionSender: ModuleScript;
+							createFunctionReceiver: ModuleScript;
+							errors: ModuleScript;
+						};
+						events: Folder & {
+							createServerMethod: ModuleScript;
+							createNetworkingEvent: ModuleScript;
+							createGenericHandler: ModuleScript;
+							createClientMethod: ModuleScript;
+						};
+						functions: Folder & {
+							createServerMethod: ModuleScript;
+							createNetworkingFunction: ModuleScript;
+							createGenericHandler: ModuleScript;
+							createClientMethod: ModuleScript;
+						};
+						util: Folder & {
+							createSignalContainer: ModuleScript;
+							getNamespaceConfig: ModuleScript;
+							timeoutPromise: ModuleScript;
+						};
+						event: Folder & {
+							createEvent: ModuleScript;
+							createRemoteInstance: ModuleScript;
+						};
+						middleware: Folder & {
+							createMiddlewareProcessor: ModuleScript;
+							createGuardMiddleware: ModuleScript;
+							skip: ModuleScript;
+						};
 					};
 				};
 			};
@@ -402,62 +519,22 @@ interface ReplicatedStorage extends Instance {
 		run: Animation;
 		walk: Animation;
 	};
-	Viewmodel: Model & {
-		Torso: Part;
-		Head: Part & {
-			Torso: Weld;
+	TS: Folder & {
+		classes: Folder & {
+			noise: ModuleScript;
 		};
-	};
-	Assets: Folder & {
-		Collider: Model & {
-			Body: Part & {
-				LadderSensor: ControllerPartSensor;
-				GroundSensor: ControllerPartSensor;
-			};
+		utils: Folder & {
+			arrayUtils: ModuleScript;
+			mathUtils: ModuleScript;
+			animUtils: ModuleScript;
+			evilUtils: ModuleScript;
 		};
-		ControllerManager: ControllerManager & {
-			GroundController: GroundController;
-			ClimbController: ClimbController;
-			AirController: AirController;
+		networking: Folder & {
+			events: Folder;
 		};
-	};
-	Framework: Folder & {
-		Classes: Folder & {
-			PlayerServerMovement: ModuleScript;
-		};
-		Config: ModuleScript;
-		Animations: ModuleScript;
-		Packets: ModuleScript;
-		ServerModules: Folder & {
-			PlayerMovementModule: ModuleScript;
-			WorldModule: ModuleScript;
-		};
-		ClientModules: Folder & {
-			AnimationModule: ModuleScript;
-			CharacterControllerModule: ModuleScript;
-			CameraModule: ModuleScript;
-		};
-		Types: ModuleScript;
-	};
-	SurvivorSense: MeshPart;
-	ZFramework: Folder & {
-		Module: ModuleScript;
-		Common: ModuleScript;
-		Engine: ModuleScript;
-		Classes: Folder & {
-			Example: ModuleScript;
-			Object: ModuleScript;
-			Example2: ModuleScript;
-		};
-		PackageLink: PackageLink;
-		HOWTOUSE: Script;
-		HOWTOINSTALL: Script;
-		Client: Folder & {
-			ExampleModule: ModuleScript;
-			HelloModule: ModuleScript;
-		};
-		Types: ModuleScript;
-		Server: Folder;
+		angles: ModuleScript;
+		components: Folder;
+		types: ModuleScript;
 	};
 	Tools: Folder & {
 		["Flare gun"]: Tool & {
@@ -520,31 +597,61 @@ interface ReplicatedStorage extends Instance {
 			MainServer: Script;
 		};
 	};
-	CircularProgress: ScreenGui & {
-		Progress: Frame & {
-			Frame1: Frame & {
-				ImageLabel: ImageLabel & {
-					UIGradient: UIGradient;
-				};
-			};
-			Frame2: Frame & {
-				ImageLabel: ImageLabel & {
-					UIGradient: UIGradient;
-				};
-			};
-			Percentage: NumberValue & {
-				ProgressScript: LocalScript & {
-					ColorOfPercentPart: Color3Value;
-					ImageTrans: NumberValue;
-					ImageId: StringValue;
-					ColorOfMissingPart: Color3Value;
-					ImageColor: Color3Value;
-					TransOfPercentPart: NumberValue;
-					FlipProgress: BoolValue;
-					MissingPartType: StringValue;
-					TransOfMissingPart: NumberValue;
-				};
+	Stats: Folder & {
+		Energy: Frame & {
+			UICorner: UICorner;
+			UIStroke: UIStroke;
+			UIAspectRatioConstraint: UIAspectRatioConstraint;
+			Fill: Frame & {
+				UICorner: UICorner;
+				UIGradient: UIGradient;
 			};
 		};
+		Health: Frame & {
+			UICorner: UICorner;
+			UIStroke: UIStroke;
+			UIAspectRatioConstraint: UIAspectRatioConstraint;
+			Fill: Frame & {
+				UICorner: UICorner;
+				UIGradient: UIGradient;
+			};
+		};
+	};
+	Framework: Folder & {
+		Classes: Folder & {
+			PlayerServerMovement: ModuleScript;
+		};
+		Config: ModuleScript;
+		Animations: ModuleScript;
+		Packets: ModuleScript;
+		ServerModules: Folder & {
+			PlayerMovementModule: ModuleScript;
+			WorldModule: ModuleScript;
+		};
+		ClientModules: Folder & {
+			AnimationModule: ModuleScript;
+			CharacterControllerModule: ModuleScript;
+			CameraModule: ModuleScript;
+		};
+		Types: ModuleScript;
+	};
+	ZFramework: Folder & {
+		Module: ModuleScript;
+		Common: ModuleScript;
+		Engine: ModuleScript;
+		Classes: Folder & {
+			Example: ModuleScript;
+			Object: ModuleScript;
+			Example2: ModuleScript;
+		};
+		PackageLink: PackageLink;
+		HOWTOUSE: Script;
+		HOWTOINSTALL: Script;
+		Client: Folder & {
+			ExampleModule: ModuleScript;
+			HelloModule: ModuleScript;
+		};
+		Types: ModuleScript;
+		Server: Folder;
 	};
 }

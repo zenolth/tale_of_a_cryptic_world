@@ -1,5 +1,9 @@
-import CameraController from "./modules/cameraController";
-import CharacterController from "./modules/characterController";
+//!native
+// TODO: Please create a transformer that makes every file native
+import { Flamework } from "@flamework/core";
 
-export let cameraController = new CameraController();
-export let characterController = new CharacterController();
+Flamework.addPaths("src/client/controllers");
+Flamework.addPaths("src/client/components");
+Flamework.addPaths("src/shared/components");
+
+Flamework.ignite();
