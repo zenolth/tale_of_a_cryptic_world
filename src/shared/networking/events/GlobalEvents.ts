@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { Networking } from "@flamework/networking";
 
 interface ClientToServerEvents {

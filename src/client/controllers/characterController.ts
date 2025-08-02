@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { Controller, OnRender, OnStart } from "@flamework/core";
 
 import Maid from "@rbxts/maid";

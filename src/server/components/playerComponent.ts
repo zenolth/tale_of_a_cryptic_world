@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { BaseComponent, Component } from "@flamework/components";
 import { OnPhysics, OnStart } from "@flamework/core";
 import Maid from "@rbxts/maid";

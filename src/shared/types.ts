@@ -1,4 +1,5 @@
 //!native
+//!optimize 2
 
 import { ReplicatedStorage } from "@rbxts/services";
 

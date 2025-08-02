@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { Controller, OnRender, OnStart } from "@flamework/core";
 
 import Signal from "@rbxts/signal";
@@ -107,7 +109,7 @@ export class CameraController implements OnStart,OnRender {
 		if (!this.areJointsInitialized()) return;
 
 		const lerpWeight = 1 - math.pow(0.5,LERP_WEIGHT * frameTime);
-		const rootLerpWeight = 1 - math.pow(0.5,15 * frameTime);
+		const rootLerpWeight = 1 - math.pow(0.5,25 * frameTime);
 		const offsetLerpWeight = 1 - math.pow(0.5,20 * frameTime);
 
 		switch(this.currentView) {
@@ -189,7 +191,7 @@ export class CameraController implements OnStart,OnRender {
 
 		this.camera.CFrame = cameraCFrame.Lerp(realFPCFrame,this.toHeadAlpha);
 
-		if (this.humanoid.MoveDirection.Magnitude <= 0.1) {
+		/*if (this.humanoid.MoveDirection.Magnitude <= 0.1) {
 			const cameraYawDiff = math.deg(MathUtils.angleDiffRad(this.getYaw(),this.rootYaw));
 
 			let newRootYaw = this.rootYaw;
@@ -213,8 +215,9 @@ export class CameraController implements OnStart,OnRender {
 			//print(math.deg(moveAngle));
 			const newRootYaw = this.rotation.yaw + moveAngle;
 			this.rootYaw = MathUtils.angleLerp(this.rootYaw,newRootYaw,rootLerpWeight);
-		}
-		
+		}*/
+		//this.rootYaw = MathUtils.angleLerp(this.rootYaw,this.rotation.yaw,rootLerpWeight);
+		this.rootYaw = this.rotation.yaw;
 		
 		this.rootYaw %= math.pi * 2;
 

@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { Dependency, Service } from "@flamework/core";
 
 import { OnPlayerJoined, OnPlayerRemoving } from "./playerEvents";

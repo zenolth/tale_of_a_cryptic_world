@@ -1,7 +1,9 @@
 //!native
+//!optimize 2
 
 export namespace MathUtils {
     export const tau: number = math.pi * 2;
+    export const sqrtOf2: number = math.sqrt(2);
     export function lerp(from: number,to: number,weight: number) {
         return from + (to - from) * weight;
     }
@@ -25,7 +27,7 @@ export namespace MathUtils {
         buffer.writei32(buff,0,0x5f3759df - (buffer.readi32(buff,0) >> 1)); // what the fuck?
         let y = buffer.readf32(buff,0);
         y = y * (threehalfs - (x2 * y * y));                                // 1st iteration
-    //  y = y * (threehalfs - (x2 * y * y));                             // 2nd iteration, this can be removed
+    //  y = y * (threehalfs - (x2 * y * y));                                // 2nd iteration, this can be removed
         return y;
     }
 }

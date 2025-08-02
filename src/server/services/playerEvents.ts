@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { Modding, OnStart, Service } from "@flamework/core";
 import { Players } from "@rbxts/services";
 

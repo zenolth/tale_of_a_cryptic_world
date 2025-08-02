@@ -1,4 +1,5 @@
 //!native
+//!optimize 2
 
 export function slice<T extends defined>(array: T[], start?: number, stop?: number): T[] {
     start = start ?? 0;

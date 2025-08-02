@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 import { OnStart, Service } from "@flamework/core";
 import { HttpService } from "@rbxts/services";
 

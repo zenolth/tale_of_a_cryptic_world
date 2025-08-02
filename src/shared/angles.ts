@@ -1,4 +1,5 @@
 //!native
+//!optimize 2
 
 const MAX_ANGLE = math.pi * 2;
 

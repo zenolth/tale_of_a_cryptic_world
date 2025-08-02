@@ -1,4 +1,5 @@
 //!native
+//!optimize 2
 
 export function setInstanceProperty<T extends Instance, K extends keyof T>(
     instance: T,

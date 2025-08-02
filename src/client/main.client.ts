@@ -1,4 +1,6 @@
 //!native
+//!optimize 2
+
 // TODO: Please create a transformer that makes every file native
 import { Flamework } from "@flamework/core";
 
