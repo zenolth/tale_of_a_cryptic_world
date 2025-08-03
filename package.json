@@ -24,7 +24,7 @@
     "@rbxts/maid": "^1.1.0",
     "@rbxts/math": "^1.1.0",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/screen3d": "^1.0.1",
+    "@rbxts/screen3d": "^1.0.2",
     "@rbxts/services": "^1.5.5",
     "@rbxts/signal": "^1.1.1",
     "@rbxts/spring": "^1.0.2",

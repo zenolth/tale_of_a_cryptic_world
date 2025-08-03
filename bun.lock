@@ -15,7 +15,7 @@
         "@rbxts/maid": "^1.1.0",
         "@rbxts/math": "^1.1.0",
         "@rbxts/profile-store": "^1.0.3",
-        "@rbxts/screen3d": "^1.0.1",
+        "@rbxts/screen3d": "^1.0.2",
         "@rbxts/services": "^1.5.5",
         "@rbxts/signal": "^1.1.1",
         "@rbxts/spring": "^1.0.2",
@@ -90,7 +90,7 @@
 
     "@rbxts/profile-store": ["@rbxts/profile-store@1.0.3", "", {}, "sha512-hhaBnE7iabydxMMlun9ezD1oFCfETFXp95r2hjmQUip5GrGLGugAbrzdUhEaqRpdDaM+c4qsj2JfskdAUfz/mw=="],
 
-    "@rbxts/screen3d": ["@rbxts/screen3d@1.0.1", "", {}, "sha512-MRLBNoIvQXuKbDv8QG8PIPB8WY27f5ZW3PL2B8m4fGYhtV9xRkWAoO5LmvbyN9rINIvGQNp0GAauChJFNLPSbw=="],
+    "@rbxts/screen3d": ["@rbxts/screen3d@1.0.2", "", {}, "sha512-NzFPfggeLkT7HrfiD95jpQ4VyRJr8W7uounxvFDROmmqgwqAt66XVqrQSGrAYArM0cHZknOUo6oxZ6zTu/KTsg=="],
 
     "@rbxts/services": ["@rbxts/services@1.5.5", "", {}, "sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg=="],
 

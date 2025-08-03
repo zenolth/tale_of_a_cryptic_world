@@ -1,16 +1,17 @@
 //!native
 //!optimize 2
 
-import { Controller, OnRender, OnStart } from "@flamework/core";
+import { Controller, OnStart } from "@flamework/core";
 
 import Signal from "@rbxts/signal";
 import Maid from "@rbxts/maid";
 import { Angles } from "shared/angles";
 import { MathUtils } from "shared/utils/mathUtils";
 
-import { Workspace, Players, RunService, UserInputService, ContextActionService, ReplicatedStorage } from "@rbxts/services";
+import { Workspace, Players, UserInputService, ContextActionService, ReplicatedStorage } from "@rbxts/services";
 import { Limits, Viewmodel } from "shared/types";
 import { MovementAnimationController } from "./movementAnimationController";
+import { OnRenderStep } from "./renderStepController";
 
 const HEAD_ACCESSORY_TYPES: Array<Enum.AccessoryType> = [
 	Enum.AccessoryType.Face,
@@ -30,7 +31,7 @@ enum CameraView {
 }
 
 @Controller()
-export class CameraController implements OnStart,OnRender {
+export class CameraController implements OnStart,OnRenderStep {
     player: Player = Players.LocalPlayer;
     character: Model | undefined;
 
@@ -81,6 +82,9 @@ export class CameraController implements OnStart,OnRender {
 	playerMaid: Maid = new Maid();
 	characterMaid: Maid = new Maid();
 
+	renderStepName: string = "CameraStep";
+	renderStepPriority: number = Enum.RenderPriority.Camera.Value - 1;
+
 	constructor(private movementAnimController: MovementAnimationController) {}
 
     onStart(): void {
@@ -100,7 +104,7 @@ export class CameraController implements OnStart,OnRender {
 		this.playerMaid.GiveTask(this.player.Destroying.Connect(() => this.cleanup()));
     }
 
-    onRender(frameTime: number): void {
+    onRenderStep(frameTime: number): void {
         if (this.camera === undefined || this.character === undefined) return;
 		if (this.humanoid === undefined || this.rootPart === undefined) return;
 		if (this.head === undefined || this.torso === undefined) return;
@@ -147,7 +151,7 @@ export class CameraController implements OnStart,OnRender {
 		const cameraCFrame = headCFrame
 								.mul(cameraAngles)
 								.mul(this.offset)
-								.add(flatLookVector.mul(0.1 + this.forwardCameraOffset))
+								.add(flatLookVector.mul(this.forwardCameraOffset))
 								.add(flatUpVector.mul((this.head.Size.Y * 0.45) - math.abs(this.forwardCameraOffset) / 4));
 		
 		const headRot = this.head.CFrame.ToEulerAnglesXYZ();
@@ -217,6 +221,7 @@ export class CameraController implements OnStart,OnRender {
 			this.rootYaw = MathUtils.angleLerp(this.rootYaw,newRootYaw,rootLerpWeight);
 		}*/
 		//this.rootYaw = MathUtils.angleLerp(this.rootYaw,this.rotation.yaw,rootLerpWeight);
+
 		this.rootYaw = this.rotation.yaw;
 		
 		this.rootYaw %= math.pi * 2;
