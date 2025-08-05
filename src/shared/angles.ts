@@ -1,6 +1,8 @@
 //!native
 //!optimize 2
 
+import { MathUtils } from "./utils/mathUtils";
+
 const MAX_ANGLE = math.pi * 2;
 
 export class Angles {
@@ -14,10 +16,18 @@ export class Angles {
         this.roll = roll;
     }
 
-    public Lerp(otherAngles: Angles,alpha: number) {
-        const pitchDiff = math.fmod(otherAngles.pitch - this.pitch,MAX_ANGLE);
-        const yawDiff = math.fmod(otherAngles.yaw - this.yaw,MAX_ANGLE);
-        const rollDiff =  math.fmod(otherAngles.roll - this.roll,MAX_ANGLE);
+    public diff(other: Angles) {
+        return new Angles(
+            MathUtils.angleDiffRad(this.pitch,other.pitch),
+            MathUtils.angleDiffRad(this.yaw,other.yaw),
+            MathUtils.angleDiffRad(this.roll,other.roll)
+        );
+    }
+
+    public lerp(other: Angles,alpha: number) {
+        const pitchDiff = math.fmod(other.pitch - this.pitch,MAX_ANGLE);
+        const yawDiff = math.fmod(other.yaw - this.yaw,MAX_ANGLE);
+        const rollDiff =  math.fmod(other.roll - this.roll,MAX_ANGLE);
 
         const pitchShortestDist = math.fmod(2 * pitchDiff,MAX_ANGLE) - pitchDiff;
         const yawShortestDist = math.fmod(2 * yawDiff,MAX_ANGLE) - yawDiff;
@@ -28,5 +38,9 @@ export class Angles {
             this.yaw + yawShortestDist * alpha,
             this.roll + rollShortestDist * alpha
         );
+    }
+
+    public toString() {
+        return `[${this.pitch},${this.yaw},${this.roll}]`;
     }
 }

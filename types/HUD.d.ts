@@ -1,29 +1,52 @@
 type HUD = ScreenGui & {
-	Rake: Folder & {
-		Heartbeats: Sound;
-		Chasing: Sound;
-		Horrors: Folder & {
-			Horror3: Sound & {
-				DistortionSoundEffect: DistortionSoundEffect;
-			};
-			Horror2: Sound & {
-				DistortionSoundEffect: DistortionSoundEffect;
-			};
-			Horror1: Sound & {
-				DistortionSoundEffect: DistortionSoundEffect;
+	TopLeft: Frame & {
+		UIPadding: UIPadding;
+		UIAspectRatioConstraint: UIAspectRatioConstraint;
+		Health: Frame & {
+			UIGradient: UIGradient;
+			UIPadding: UIPadding;
+			Inside: Frame & {
+				UIStroke: UIStroke;
+				UIPadding: UIPadding;
+				Bar: Frame;
 			};
 		};
 	};
-	BottomLeft: Frame & {
+	BottomRight: Frame & {
+		AlphaWarning: TextLabel;
 		Weapons: Frame & {
+			UIGradient: UIGradient;
 			UIPadding: UIPadding;
 			Inside: Frame & {
-				WeaponImage: ImageLabel;
 				UIStroke: UIStroke;
 				UIPadding: UIPadding;
+				Icon: ImageLabel;
 			};
 		};
 		UIPadding: UIPadding;
+		UIAspectRatioConstraint: UIAspectRatioConstraint;
+	};
+	Main: LocalScript;
+	BottomLeft: Frame & {
+		Equipment: Frame & {
+			UIGradient: UIGradient;
+			UIPadding: UIPadding;
+			Inside: Frame & {
+				UIStroke: UIStroke;
+				UIPadding: UIPadding;
+				Icon: ImageLabel;
+			};
+		};
+		UIPadding: UIPadding;
+		UIAspectRatioConstraint: UIAspectRatioConstraint;
+	};
+	TopRight: Frame & {
+		UIAspectRatioConstraint: UIAspectRatioConstraint;
+		UIPadding: UIPadding;
+	};
+	Frame: Frame & {
+		UICorner: UICorner;
+		UIStroke: UIStroke;
 		UIAspectRatioConstraint: UIAspectRatioConstraint;
 	};
 	Ambience: Folder & {
@@ -39,36 +62,19 @@ type HUD = ScreenGui & {
 			N6: Sound;
 		};
 	};
-	TopLeft: Frame & {
-		UIPadding: UIPadding;
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
-		Health: Frame & {
-			UIPadding: UIPadding;
-			Inside: Frame & {
-				UIStroke: UIStroke;
-				UIPadding: UIPadding;
-				Bar: Frame;
+	Rake: Folder & {
+		Heartbeats: Sound;
+		Chasing: Sound;
+		Horrors: Folder & {
+			Horror3: Sound & {
+				DistortionSoundEffect: DistortionSoundEffect;
+			};
+			Horror2: Sound & {
+				DistortionSoundEffect: DistortionSoundEffect;
+			};
+			Horror1: Sound & {
+				DistortionSoundEffect: DistortionSoundEffect;
 			};
 		};
-	};
-	AlphaWarning: TextLabel & {
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
-	};
-	Main: LocalScript;
-	BottomRight: Frame & {
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
-		UIPadding: UIPadding;
-	};
-	Frame: Frame & {
-		UICorner: UICorner;
-		UIStroke: UIStroke;
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
-	};
-	TopRight: Frame & {
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
-		UIPadding: UIPadding;
-	};
-	Crosshair: ImageLabel & {
-		UIAspectRatioConstraint: UIAspectRatioConstraint;
 	};
 }

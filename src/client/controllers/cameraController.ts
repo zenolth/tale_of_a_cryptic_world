@@ -68,7 +68,10 @@ export class CameraController implements OnStart,OnRenderStep {
 	rawRotation: Angles = new Angles();
 	rotation: Angles = new Angles();
 
-	cameraLerpWeight: number = 3;
+	private lastRotation = new Angles();
+	deltaRotation = new Angles();
+
+	cameraLerpWeight: number = 10;
 
 	pitchLimit: Limits<number> = new Limits(-70,70);
 	yawLimit: number = 30;
@@ -125,7 +128,11 @@ export class CameraController implements OnStart,OnRenderStep {
 				break;
 		}
 		
-		this.rotation = this.rotation.Lerp(this.rawRotation,math.pow(this.cameraLerpWeight * frameTime,0.5));
+		this.rotation = this.rotation.lerp(this.rawRotation,math.pow(this.cameraLerpWeight * frameTime,0.5));
+
+		this.deltaRotation = this.lastRotation.diff(this.rotation);
+
+		this.lastRotation = this.rotation;
 
 		const flatCFrame = CFrame.Angles(0,this.rotation.yaw,0);
 		const flatLookVector = flatCFrame.LookVector;

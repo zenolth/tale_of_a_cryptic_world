@@ -5,6 +5,7 @@ import { Controller, OnRender, OnStart } from "@flamework/core";
 
 import Maid from "@rbxts/maid";
 import { Workspace, Players, UserInputService, ContextActionService } from "@rbxts/services";
+import { Events } from "client/networking";
 import { ColliderShape, MovementManager } from "shared/types";
 
 type Inputs = {
@@ -87,6 +88,7 @@ export class CharacterController implements OnStart,OnRender {
 
     onRender(frameTime: number): void {
         if (this.humanoid === undefined || this.manager === undefined || this.rootPart === undefined || this.character === undefined || this.colliderShape === undefined) return;
+        if (this.humanoid.Health <= 0) return;
 
         if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
             this.humanoid.WalkSpeed = 21;
@@ -102,7 +104,7 @@ export class CharacterController implements OnStart,OnRender {
 
         if (this.inputs.jump === true && this.floor.material !== Enum.Material.Air) {
             this.inputs.jump = false;
-            this.humanoid.ChangeState(Enum.HumanoidStateType.Jumping);
+            this.changeState(Enum.HumanoidStateType.Jumping);
             this.rootPart.ApplyImpulse(Vector3.yAxis.mul(this.humanoid.JumpPower));
         }
 
@@ -113,6 +115,13 @@ export class CharacterController implements OnStart,OnRender {
         }
         const oldSize = this.colliderShape.Body.Size;
         this.colliderShape.Body.Size = new Vector3(height,oldSize.Y,oldSize.Z);
+
+        if (this.rootPart.CFrame.Position.Y <= Workspace.FallenPartsDestroyHeight) this.humanoid.Health = -math.huge;
+    }
+
+    changeState(state: Enum.HumanoidStateType) {
+        this.humanoid?.ChangeState(state);
+        Events.characterChangeState.fire(state);
     }
 
     private onAction(name: string,state: Enum.UserInputState,input: InputObject) {
@@ -200,9 +209,9 @@ export class CharacterController implements OnStart,OnRender {
             this.groundSensor.HitFrame = new CFrame(groundResult.Position);
 
             if (this.previousGroundResult !== undefined) {
-                this.humanoid.ChangeState(Enum.HumanoidStateType.Running);
+                this.changeState(Enum.HumanoidStateType.Running);
             } else {
-                this.humanoid.ChangeState(Enum.HumanoidStateType.Landed);
+                this.changeState(Enum.HumanoidStateType.Landed);
             }
             this.manager.ActiveController = this.manager.GroundController;
 
@@ -213,7 +222,7 @@ export class CharacterController implements OnStart,OnRender {
             this.groundSensor.HitNormal = Vector3.yAxis;
             this.groundSensor.HitFrame = new CFrame(this.rootPart.CFrame.Position);
 
-            if (this.rootPart.AssemblyLinearVelocity.Y < 0) this.humanoid.ChangeState(Enum.HumanoidStateType.Freefall);
+            if (this.rootPart.AssemblyLinearVelocity.Y < 0) this.changeState(Enum.HumanoidStateType.Freefall);
             this.manager.ActiveController = this.manager.AirController;
 
             this.floor.material = Enum.Material.Air;
@@ -237,10 +246,14 @@ export class CharacterController implements OnStart,OnRender {
         this.groundSensor = this.manager.GroundSensor as ControllerPartSensor;
 
         this.characterMaid.GiveTask(this.character.Destroying.Connect(() => this.cleanupCharacter()));
+        this.characterMaid.GiveTask(this.humanoid.HealthChanged.Connect(health => {
+            if (health <= 0) this.changeState(Enum.HumanoidStateType.Dead);
+        }));
     }
 
     private cleanupCharacter() {
         this.characterMaid.Destroy();
+        if (this.humanoid !== undefined) this.humanoid.Health = -math.huge;
     }
 
     private cleanup() {

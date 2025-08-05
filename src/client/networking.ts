@@ -1,6 +1,6 @@
 //!native
 //!optimize 2
 
-import { GlobalEvents } from "shared/networking/events/GlobalEvents";
+import { GLOBAL_EVENTS } from "shared/networking/events/globalEvents";
 
-export const Events = GlobalEvents.createClient({});
+export const Events = GLOBAL_EVENTS.createClient({});

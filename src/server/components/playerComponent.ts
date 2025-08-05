@@ -4,7 +4,7 @@
 import { BaseComponent, Component } from "@flamework/components";
 import { OnPhysics, OnStart } from "@flamework/core";
 import Maid from "@rbxts/maid";
-import { ReplicatedStorage, Workspace } from "@rbxts/services";
+import { Players, ReplicatedStorage, Workspace } from "@rbxts/services";
 import { ColliderShape, MovementManager } from "shared/types";
 
 @Component()
@@ -38,8 +38,8 @@ export class PlayerComponent extends BaseComponent<{},Player> implements OnStart
     private givePartOwnership(part: BasePart) {
         try {
             if (part.Anchored === false && part.IsDescendantOf(Workspace)) part.SetNetworkOwner(this.instance);
-        } finally {
-
+        } catch (err) {
+            warn(`${part.Name} : ${err as string}`);
         }
     }
 
@@ -50,6 +50,10 @@ export class PlayerComponent extends BaseComponent<{},Player> implements OnStart
                 this.givePartOwnership(instance);
             }));
         }
+    }
+
+    changeState(state: Enum.HumanoidStateType) {
+        this.humanoid?.ChangeState(state);
     }
 
     private onCharacterAdd(character: Model) {
@@ -99,6 +103,12 @@ export class PlayerComponent extends BaseComponent<{},Player> implements OnStart
 
         this.characterMaid.GiveTask(this.character.DescendantAdded.Connect((i) => this.handleInstance(i)));
         this.characterMaid.GiveTask(this.colliderShape);
+        this.characterMaid.GiveTask(this.humanoid.StateChanged.Connect((oldValue,newValue) => {
+            if (newValue === Enum.HumanoidStateType.Dead) {
+                print("died");
+                task.delay(Players.RespawnTime,() => this.instance.LoadCharacter());
+            }
+        }));
         this.characterMaid.GiveTask(this.character.Destroying.Connect(() => this.cleanupCharacter()));
     }
 
