@@ -88,6 +88,9 @@ export class CharacterController implements OnStart,OnRender {
 
     onRender(frameTime: number): void {
         if (this.humanoid === undefined || this.manager === undefined || this.rootPart === undefined || this.character === undefined || this.colliderShape === undefined) return;
+        
+        this.humanoid.Health = math.clamp(this.humanoid.Health,0,this.humanoid.MaxHealth);
+        
         if (this.humanoid.Health <= 0) return;
 
         if (UserInputService.IsKeyDown(Enum.KeyCode.LeftShift)) {
